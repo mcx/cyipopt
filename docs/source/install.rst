@@ -457,3 +457,24 @@ If all works well, you should see the following when setting ``tee=True``::
    This is Ipopt version 3.14.16, running with linear solver ma27.
 
 This was tested on Windows 11 x64 with Ipopt version 3.14.16.
+`
+Building `manylinux` wheels
+---------------------------
+
+manylinux wheels can be built for a tagged version (GIT_TAG below) of cyipopt
+via docker by running (while in the root of this repo)::
+
+   docker run -v $(pwd):/wheels --rm --platform=linux/amd64 quay.io/pypa/manylinux_2_28_x86_64 bash /wheels/build_manylinux_wheels.sh GIT_TAG
+
+for linux/amd64 and::
+
+   docker run -v $(pwd):/wheels --rm --platform=linux/aarch64 quay.io/pypa/manylinux_2_28_aarch64 bash /wheels/build_manylinux_wheels.sh GIT_TAG
+
+for linux/aarch64 platforms. Built wheels appear at the folder the command was
+executed from.
+
+.. warning::
+
+   Docker supports emulating non-native platforms to e.g. produce ARM binaries
+   from an AMD64 host. However this can be quite slow (~1h for our case).
+
