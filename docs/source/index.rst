@@ -53,5 +53,5 @@ Copyright
 
 | Copyright (C) 2012-2015 Amit Aides
 | Copyright (C) 2015-2017 Matthias Kümmerer
-| Copyright (C) 2017-2025 cyipopt developers
+| Copyright (C) 2017-2026 cyipopt developers
 | License: EPL 2.0
