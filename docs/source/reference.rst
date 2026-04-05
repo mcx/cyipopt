@@ -10,12 +10,8 @@ specifications may not be enough to give full guidelines on their uses.
 .. autoclass:: cyipopt.Problem
    :members:
 
-.. autoclass:: cyipopt.problem
-
 .. autofunction:: cyipopt.minimize_ipopt
 
 .. autofunction:: cyipopt.set_logging_level
-
-.. autofunction:: cyipopt.setLoggingLevel
 
 .. autoclass:: cyipopt.CyIpoptEvaluationError
