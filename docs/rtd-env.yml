@@ -6,7 +6,9 @@ dependencies:
   - ipopt >=3.13
   - libblas * *netlib
   - numpy >=1.26.4
+  - numpydoc >=1.6.0
   - pkg-config >=0.29.2
   - python >=3.9
   - scipy >=1.11.4
   - setuptools >=68.1.2
+  - sphinx >=7.2.6
