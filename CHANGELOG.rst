@@ -38,6 +38,12 @@ Version History
 [1.7.0.dev0] - XXXX-XX-XX
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Added
++++++
+
+- Support for Python 3.14.
+- Support for sparse Hessians in the SciPy interface.
+
 [1.6.1] - 2025-08-14
 ~~~~~~~~~~~~~~~~~~~~
 
