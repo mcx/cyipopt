@@ -44,6 +44,13 @@ Added
 - Support for Python 3.14.
 - Support for sparse Hessians in the SciPy interface.
 
+Removed
++++++++
+
+- Removed ipopt_wrapper.py, use scipy_interface.py instead. ipopt_wrapper.py
+  was legacy code from when the package name was ipopt and long been
+  deprecated.
+
 [1.6.1] - 2025-08-14
 ~~~~~~~~~~~~~~~~~~~~
 
