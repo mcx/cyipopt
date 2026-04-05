@@ -281,9 +281,7 @@ multipliers :math:`\lambda` (also known as dual variables). In code::
 
 Ipopt only uses the lower triangle of the hessian-vector-product under the
 hood, due to the symmetry of the hessians. Similar to sparse jacobians, it also
-supports sparse hessians, but this isn't supported by the scipy interface yet.
-However, you can use cyipopt's problem interface in case you need to pass
-sparse hessians.
+supports sparse hessians.
 
 Finally, after defining the constraint and the initial guess, we can solve the
 problem::
