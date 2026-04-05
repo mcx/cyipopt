@@ -457,7 +457,7 @@ If all works well, you should see the following when setting ``tee=True``::
    This is Ipopt version 3.14.16, running with linear solver ma27.
 
 This was tested on Windows 11 x64 with Ipopt version 3.14.16.
-`
+
 Building `manylinux` wheels
 ---------------------------
 
@@ -477,4 +477,3 @@ executed from.
 
    Docker supports emulating non-native platforms to e.g. produce ARM binaries
    from an AMD64 host. However this can be quite slow (~1h for our case).
-
