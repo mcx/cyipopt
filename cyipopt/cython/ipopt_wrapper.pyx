@@ -449,15 +449,20 @@ cdef class Problem:
             ret_val = self.__jacobianstructure()
             nele_jac = len(ret_val[0])
 
-        if self.__hessianstructure:
+        if self.__hessianstructure:  # sparse Hessian function provided
             ret_val = self.__hessianstructure()
             nele_hess = len(ret_val[0])
         else:
-            if self.__hessian is None:
+            if self.__hessian is None:  # no Hessian function provided
                 msg = b"Hessian callback not given, setting nele_hess to 0"
                 log(msg, logging.INFO)
                 nele_hess = 0
-            elif self.__n > 2**16:
+            elif self.__n > 2**16:  # dense Hessian function is provided
+                # NOTE : the number of elements in the dense Hessian can be
+                # extremely large, n*(n+1)/2. This check is likely supposed to
+                # set the limit based on the expected size of C int (Ipopt's
+                # Index), making nele_hess's max size to be 2**32=4,294,967,296
+                # here which is the expected size of a C long int.
                 msg = ("Number of variables is too large for using dense "
                        "Hessian")
                 raise ValueError(msg)
