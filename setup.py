@@ -4,7 +4,7 @@ cyipopt: Python wrapper for the Ipopt optimization package, written in Cython.
 
 Copyright (C) 2012-2015 Amit Aides
 Copyright (C) 2015-2017 Matthias Kümmerer
-Copyright (C) 2017-2025 cyipopt developers
+Copyright (C) 2017-2026 cyipopt developers
 
 License: EPL 2.0
 """
@@ -176,12 +176,6 @@ if __name__ == "__main__":
         print('Using Ipopt found with pkg-config.')
         ext_module_data = handle_ext_modules_general_os()
     EXT_MODULES, DATA_FILES, include_package_data = ext_module_data
-    # NOTE : The `name` kwarg here is the distribution name, i.e. the name that
-    # PyPi uses for a collection of packages. Historically this has been
-    # `ipopt`, but as of 1.1.0 is `cyipopt`. `pip install cyipopt` will install
-    # the `cyipopt` and `ipopt` packages into the `site-packages` directory.
-    # Both `import cyipopt` and `import ipopt` will work, with the later giving
-    # a deprecation warning.
     setup(name=PACKAGE_NAME,
           version=VERSION,
           author=AUTHOR,
