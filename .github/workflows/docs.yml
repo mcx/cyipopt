@@ -40,6 +40,7 @@ jobs:
         run: |
           cd docs
           python -c "import ipopt_wrapper; print(ipopt_wrapper.__file__)"
+          python -c "from cyipopt import ipopt_wrapper; print(ipopt_wrapper.__file__)"
           make clean
           make html
           cd ..
