@@ -134,7 +134,7 @@ def handle_ext_modules_win_32_other_ipopt():
     IPOPT_DLL = [file for file in os.listdir(bin_folder) if file.endswith(".dll")]
     print("Found ipopt binaries {}".format(IPOPT_DLL))
     IPOPT_DLL_DIRS = [bin_folder]
-    EXT_MODULES = [Extension("ipopt_wrapper",
+    EXT_MODULES = [Extension("cyipopt.ipopt_wrapper",
                              ["cyipopt/cython/ipopt_wrapper.pyx"],
                              include_dirs=IPOPT_INCLUDE_DIRS,
                              libraries=IPOPT_LIBS,
@@ -147,7 +147,7 @@ def handle_ext_modules_win_32_other_ipopt():
 
 
 def handle_ext_modules_general_os():
-    ipopt_wrapper_ext = Extension("ipopt_wrapper",
+    ipopt_wrapper_ext = Extension("cyipopt.ipopt_wrapper",
                                   ["cyipopt/cython/ipopt_wrapper.pyx"],
                                   **pkgconfig("ipopt"))
     EXT_MODULES = [ipopt_wrapper_ext]
