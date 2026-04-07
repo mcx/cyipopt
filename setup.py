@@ -194,4 +194,5 @@ if __name__ == "__main__":
           zip_safe=False,  # required for Py27 on Windows to work
           cmdclass={"build_ext": build_ext},
           ext_modules=EXT_MODULES,
+          py_modules='ipopt_wrapper',
           )

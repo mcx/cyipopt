@@ -37,4 +37,9 @@ jobs:
           python -m pip install --no-deps --no-build-isolation .
           conda list
       - name: Test building documentation
-        run: cd docs && make clean && make html && cd ..
+        run: |
+          cd docs
+          python -c "import ipopt_wrapper; print(ipopt_wrapper.__file__)"
+          make clean
+          make html
+          cd ..
