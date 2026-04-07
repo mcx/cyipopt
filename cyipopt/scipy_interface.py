@@ -42,8 +42,8 @@ else:
 import cyipopt
 
 
-class IpoptProblemWrapper(object):
-    """Class used to map a scipy minimize definition to a cyipopt problem.
+class IpoptProblemWrapper():
+    """Class used to map a SciPy minimize definition to a cyipopt problem.
 
     Parameters
     ==========
@@ -61,14 +61,14 @@ class IpoptProblemWrapper(object):
         ``jac(x, *args, **kwargs) -> ndarray, shape(n, )``.
         If ``None``, SciPy's ``approx_fprime`` is used.
     hess : callable, optional
-        If ``None``, the Hessian is computed using IPOPT's numerical methods.
+        If ``None``, the Hessian is computed using Ipopt's numerical methods.
         Explicitly defined Hessians are not yet supported for this class.
     hessp : callable, optional
-        If ``None``, the Hessian is computed using IPOPT's numerical methods.
+        If ``None``, the Hessian is computed using Ipopt's numerical methods.
         Explicitly defined Hessians are not yet supported for this class.
     constraints : {Constraint, :py:class:`dict`} or List of {Constraint, :py:class:`dict`}, optional
         See :py:func:`scipy.optimize.minimize` for more information. Note that
-        the jacobian of each constraint corresponds to the `'jac'` key and must
+        the Jacobian of each constraint corresponds to the `'jac'` key and must
         be a callable function with signature ``jac(x) -> {ndarray,
         coo_array}``. If the constraint's value of `'jac'` is a boolean and
         True, the constraint function `fun` is expected to return a tuple
@@ -97,8 +97,8 @@ class IpoptProblemWrapper(object):
         The row indices of the nonzero elements of the hessian matrix.
     hess_nnz_col: array_like, optional
         The column indices of the nonzero elements of the hessian matrix.
-    """
 
+    """
     def __init__(self,
                  fun,
                  args=(),
@@ -112,7 +112,7 @@ class IpoptProblemWrapper(object):
                  sparse_jacs=(),
                  jac_nnz_row=(),
                  jac_nnz_col=(),
-                 hess_tril=None, 
+                 hess_tril=None,
                  hess_nnz_row=None,
                  hess_nnz_col=None):
         if not SCIPY_INSTALLED:
@@ -192,7 +192,7 @@ class IpoptProblemWrapper(object):
             self._constraint_hessians.append(con_hessian)
             self._constraint_args.append(con_args)
             self._constraint_kwargs.append(con_kwargs)
-        self._hessian_is_sparse = (hess_nnz_row is not None 
+        self._hessian_is_sparse = (hess_nnz_row is not None
                                    and hess_nnz_col is not None)
         self._hessian_tril = hess_tril
         if self._hessian_is_sparse:
@@ -289,7 +289,7 @@ def get_bounds(bounds):
         ub = [b[1] for b in bounds]
         return lb, ub
 
-def _get_sparse_hessian_structure(x0, args, kwargs, hess, constraints, 
+def _get_sparse_hessian_structure(x0, args, kwargs, hess, constraints,
                                   con_dims):
     """Return nonzero elements of Lagrangian Hessian, when it is sparse."""
     sparse_hess = False
@@ -313,7 +313,7 @@ def _get_sparse_hessian_structure(x0, args, kwargs, hess, constraints,
             if not isinstance(con_hess0, coo_array):
                 raise TypeError("The constraint hessians must be sparse if the "
                                 "objective function hessian is sparse.")
-            
+
             coords.append(con_hess0.coords)
         row, col = [np.concatenate(c) for c in zip(*coords)]
         hess_tril = row >= col
@@ -634,7 +634,7 @@ def minimize_ipopt(fun,
     sparse_jacs, jac_nnz_row, jac_nnz_col = _get_sparse_jacobian_structure(
         constraints, x0)
 
-    res = _get_sparse_hessian_structure(x0, args, kwargs, hess, constraints, 
+    res = _get_sparse_hessian_structure(x0, args, kwargs, hess, constraints,
                                         con_dims)
     hess_tril, hess_nnz_row, hess_nnz_col = res
 
@@ -654,8 +654,8 @@ def minimize_ipopt(fun,
                                   sparse_jacs=sparse_jacs,
                                   jac_nnz_row=jac_nnz_row,
                                   jac_nnz_col=jac_nnz_col,
-                                  hess_tril=hess_tril, 
-                                  hess_nnz_row=hess_nnz_row, 
+                                  hess_tril=hess_tril,
+                                  hess_nnz_row=hess_nnz_row,
                                   hess_nnz_col=hess_nnz_col)
 
     nlp = cyipopt.Problem(n=len(x0),
@@ -760,7 +760,7 @@ def _minimize_ipopt_iv(fun, x0, args, kwargs, method, jac, hess, hessp,
             tol = float(tol)
 
     options = dict() if options is None else options
-    kwargs = dict() if kwargs is None else kwargs    
+    kwargs = dict() if kwargs is None else kwargs
     if not isinstance(options, dict):
         raise ValueError('`options` must be a dictionary.')
 
