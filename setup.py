@@ -139,7 +139,7 @@ def handle_ext_modules_win_32_other_ipopt():
                              include_dirs=IPOPT_INCLUDE_DIRS,
                              libraries=IPOPT_LIBS,
                              library_dirs=IPOPT_LIB_DIRS)]
-    DATA_FILES = [(sysconfig.get_path('purelib'),
+    DATA_FILES = [(os.path.join(sysconfig.get_path('purelib'), 'cyipopt'),
                   [os.path.join(IPOPT_DLL_DIRS[0], dll)
                    for dll in IPOPT_DLL])] if IPOPT_DLL else None
     include_package_data = False
