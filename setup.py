@@ -186,7 +186,12 @@ if __name__ == "__main__":
           keywords=KEYWORDS,
           license=LICENSE,
           classifiers=CLASSIFIERS,
-          packages=[PACKAGE_NAME],
+          packages=[
+              'cyipopt',
+              'cyipopt.tests',
+              'cyipopt.tests.integration',
+              'cyipopt.tests.unit',
+          ],
           setup_requires=SETUP_REQUIRES,
           install_requires=INSTALL_REQUIRES,
           include_package_data=include_package_data,
