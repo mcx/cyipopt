@@ -48,7 +48,7 @@ jobs:
       - name: Test with pytest and run examples
         run: |
           python -c "import cyipopt"
-          python -c "import cython.ipopt_wrapper; print(cython.ipopt_wrapper.__file__)"
+          python -c "import cyipopt.ipopt_wrapper; print(cyipopt.ipopt_wrapper.__file__)"
           conda list
           pytest
           python examples/hs071.py
