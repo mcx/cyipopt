@@ -3,6 +3,7 @@ include AUTHORS
 include LICENSE
 include CHANGELOG.rst
 include README.rst
+include ipopt_wrapper.py
 recursive-include cyipopt *.py *.pyx *.pxd
 recursive-include tests *.py
 recursive-include docs Makefile *.bat *.rst *.py

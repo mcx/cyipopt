@@ -9,7 +9,7 @@ Copyright (C) 2017-2026 cyipopt developers
 License: EPL 2.0
 """
 
-from ipopt_wrapper import *
+from .ipopt_wrapper import *
 from .scipy_interface import *
 from .version import __version__
 from .exceptions import *

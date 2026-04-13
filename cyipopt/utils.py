@@ -7,7 +7,7 @@ Currently contains functions to aid with deprecation within CyIpopt.
 import warnings
 from functools import wraps
 
-from ipopt_wrapper import Problem
+from .ipopt_wrapper import Problem
 
 
 def deprecated_warning(new_name):

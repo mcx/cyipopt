@@ -134,12 +134,12 @@ def handle_ext_modules_win_32_other_ipopt():
     IPOPT_DLL = [file for file in os.listdir(bin_folder) if file.endswith(".dll")]
     print("Found ipopt binaries {}".format(IPOPT_DLL))
     IPOPT_DLL_DIRS = [bin_folder]
-    EXT_MODULES = [Extension("ipopt_wrapper",
+    EXT_MODULES = [Extension("cyipopt.ipopt_wrapper",
                              ["cyipopt/cython/ipopt_wrapper.pyx"],
                              include_dirs=IPOPT_INCLUDE_DIRS,
                              libraries=IPOPT_LIBS,
                              library_dirs=IPOPT_LIB_DIRS)]
-    DATA_FILES = [(sysconfig.get_path('purelib'),
+    DATA_FILES = [(os.path.join(sysconfig.get_path('purelib'), 'cyipopt'),
                   [os.path.join(IPOPT_DLL_DIRS[0], dll)
                    for dll in IPOPT_DLL])] if IPOPT_DLL else None
     include_package_data = False
@@ -147,7 +147,7 @@ def handle_ext_modules_win_32_other_ipopt():
 
 
 def handle_ext_modules_general_os():
-    ipopt_wrapper_ext = Extension("ipopt_wrapper",
+    ipopt_wrapper_ext = Extension("cyipopt.ipopt_wrapper",
                                   ["cyipopt/cython/ipopt_wrapper.pyx"],
                                   **pkgconfig("ipopt"))
     EXT_MODULES = [ipopt_wrapper_ext]
@@ -186,7 +186,12 @@ if __name__ == "__main__":
           keywords=KEYWORDS,
           license=LICENSE,
           classifiers=CLASSIFIERS,
-          packages=[PACKAGE_NAME],
+          packages=[
+              'cyipopt',
+              'cyipopt.tests',
+              'cyipopt.tests.integration',
+              'cyipopt.tests.unit',
+          ],
           setup_requires=SETUP_REQUIRES,
           install_requires=INSTALL_REQUIRES,
           include_package_data=include_package_data,
@@ -194,4 +199,5 @@ if __name__ == "__main__":
           zip_safe=False,  # required for Py27 on Windows to work
           cmdclass={"build_ext": build_ext},
           ext_modules=EXT_MODULES,
+          py_modules=['ipopt_wrapper'],
           )

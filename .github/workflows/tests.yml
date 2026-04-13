@@ -43,11 +43,12 @@ jobs:
         run: pkg-config --libs --cflags ipopt
       - name: Install cyipopt
         run: |
-          python -m pip install -v --no-deps --no-build-isolation .
+          python -m pip install -v --no-deps --no-build-isolation -e .
           conda list
       - name: Test with pytest and run examples
         run: |
           python -c "import cyipopt"
+          python -c "import cyipopt.ipopt_wrapper; print(cyipopt.ipopt_wrapper.__file__)"
           conda list
           pytest
           python examples/hs071.py
