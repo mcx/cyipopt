@@ -41,15 +41,29 @@ Version History
 Added
 +++++
 
-- Support for Python 3.14.
-- Support for sparse Hessians in the SciPy interface.
+- Support for Python 3.14. #306
+- Support for sparse Hessians in the SciPy interface. #301
+
+Changed
++++++++
+
+- ``ipopt_wrapper`` C extension module is now installed into the
+  ``site-packages/cyipopt/`` directory instead of the top level
+  ``site-packages/``.  Importing directly from ``ipopt_wrapper`` with ``import
+  ipopt_wrapper`` or ``from ipopt_wrapper import Problem`` is deprecated. Use
+  ``import cyipopt.ipopt_wrapper``. This replaces the prior deprecated
+  ``cyipopt/ipopt_wrapper.py`` functionality, see below. #317
+- Ipopt DLLs are installed into ``site-packages/cyipopt`` instead of
+  ``site-packages/`` when using ``setup.py`` adjacent Ipopt binaries. No
+  deprecation for accessing these DLLs from ``site-packages/``. #317
 
 Removed
 +++++++
 
-- Removed ipopt_wrapper.py, use scipy_interface.py instead. ipopt_wrapper.py
-  was legacy code from when the package name was ipopt and long been
-  deprecated.
+- Removed deprecated ``cyipopt/ipopt_wrapper.py``, use ``scipy_interface.py``
+  instead.  ``cyipopt/ipopt_wrapper.py`` was legacy code from when the package
+  name was ipopt and long been deprecated. Note that this has been replaced by
+  the C extension module named ``ipopt_wrapper``, see above. #309
 
 [1.6.1] - 2025-08-14
 ~~~~~~~~~~~~~~~~~~~~
