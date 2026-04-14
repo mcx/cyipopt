@@ -51,6 +51,20 @@ URL = "https://github.com/mechmotum/cyipopt"
 INSTALL_REQUIRES = [
     "numpy>=1.26.4",
 ]
+EXTRAS_REQUIRES = {
+    'docs': [
+        'numpydoc>=1.6.0',
+        'sphinx>=7.2.6',
+    ],
+    'examples': [
+        'jax>=0.4.26',
+        'matplotlib>=3.6.3',
+        'scipy>=1.11.4',
+    ],
+    'tests': [
+        'pytest>=7.4.4',
+    ],
+},
 LICENSE = "EPL-2.0"
 CLASSIFIERS = [
     "Development Status :: 5 - Production/Stable",
@@ -190,6 +204,7 @@ if __name__ == "__main__":
           ],
           setup_requires=SETUP_REQUIRES,
           install_requires=INSTALL_REQUIRES,
+          extras_require=EXTRAS_REQUIRES,
           include_package_data=include_package_data,
           data_files=DATA_FILES,
           zip_safe=False,  # required for Py27 on Windows to work
