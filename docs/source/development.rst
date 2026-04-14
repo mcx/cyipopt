@@ -22,10 +22,10 @@ Activate the environment::
 
 Install a development version [1]_::
 
-   (cyipopt-dev)$ python setup.py develop
+   (cyipopt-dev)$ python -m pip install --no-deps --no-build-isolation -e .
 
-.. [1] Changes to any of the Cython files require calling ``python setup.py
-   develop`` to see effects of the changes.
+.. [1] Changes to any of the Cython files require calling the install command
+   again to see effects of the changes.
 
 Building the documentation
 ==========================
