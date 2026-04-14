@@ -43,6 +43,8 @@ Added
 
 - Support for Python 3.14. #306
 - Support for sparse Hessians in the SciPy interface. #301
+- Installation supports pip extras: ``pip install
+  cyipopt[docs,examples,tests]``.
 
 Changed
 +++++++
@@ -60,6 +62,8 @@ Changed
 Removed
 +++++++
 
+- Removed the ``docs/requirements.txt`` file in favor of ``docs/rtd-env.yml``
+  and ``pip install cyipopt[docs]``.
 - Removed deprecated ``cyipopt/ipopt_wrapper.py``, use ``scipy_interface.py``
   instead.  ``cyipopt/ipopt_wrapper.py`` was legacy code from when the package
   name was ipopt and long been deprecated. Note that this has been replaced by
