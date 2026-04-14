@@ -142,6 +142,7 @@ class IpoptProblemWrapper():
 
         if hess is not None:
             self.obj_hess = hess
+            setattr(self, 'hessian', self._hessian)
         if not jac:
             def jac(x, *args, **kwargs):
                 def wrapped_fun(x):
@@ -267,7 +268,7 @@ class IpoptProblemWrapper():
             data.append(hessian(x, lagr, *args, **kwargs).data)
         return np.concatenate(data)[self._hessian_tril]
 
-    def hessian(self, x, lagrange, obj_factor):
+    def _hessian(self, x, lagrange, obj_factor):
         """Compute values of the Hessian matrix."""
         if self._hessian_is_sparse:
             return self.hessian_sparse(x, lagrange, obj_factor)
