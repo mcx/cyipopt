@@ -14,7 +14,7 @@ Clone the repository::
 
 Create a Conda environment with the dependencies::
 
-   $ conda env create -f conda/cyipopt-dev.yml
+   $ conda env create -f cyipopt-dev.yml
 
 Activate the environment::
 

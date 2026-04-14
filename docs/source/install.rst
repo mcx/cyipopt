@@ -40,8 +40,8 @@ http://www.coin-or.org/download/binary/Ipopt/. These include a version compiled
 against the MKL library. Or you can build Ipopt from source. The remaining
 dependencies can be installed with conda or other package managers.
 
-On Linux and Mac
-~~~~~~~~~~~~~~~~
+From source on Linux and MacOs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For Linux and Mac, the ``ipopt`` executable should be in your path and
 discoverable by ``pkg-config``, i.e. this command should return a valid
@@ -54,32 +54,35 @@ if ``pkg-config`` does not find the executable.
 
 Once all the dependencies are installed, execute::
 
-   $ python setup.py install
+   $ python -m pip install .
 
 to build and install the package.
 
 From source on Windows
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Install the dependencies with conda (Anaconda or Miniconda)::
+Install the build dependencies with conda::
 
-   $ conda.exe install -c conda-forge numpy cython setuptools
+   > conda.exe install -c conda-forge numpy cython setuptools pkg-config
 
-Or alternatively with pip::
+Or alternatively with pip[*]_::
 
-   $ pip install numpy cython setuptools
+   > python -m pip install numpy cython setuptools
+
+.. _*: The pkg-config command line tool is not available on PyPi. Follow
+   recommendations for installing it on Windows.
 
 Additionally, make sure you have a C compiler setup to compile Python C
-extensions, e.g. Visual C++. Build tools for VS2019
-https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019
-have been tested to work for conda Python 3.7 (see
-https://github.com/mechmotum/cyipopt/issues/52).
+extensions, e.g. Visual C++. You will need Visual C++ 14.x for Python 3.8+. See
+the Python wiki for compiler compatibility:
+
+https://wiki.python.org/moin/WindowsCompilers
 
 Download and extract the cyipopt source code from Github or PyPi.
 
-Obtain IPOPT one of two ways:
+Obtain Ipopt one of two ways:
 
-1. Using official IPOPTs binaries:
+1. Using official Ipopts binaries:
 
 Download the latest precompiled version of Ipopt that includes the DLL files
 from https://github.com/coin-or/Ipopt/releases. Note that the current setup
@@ -92,25 +95,25 @@ Alternatively, you can set the environment variable ``IPOPTWINDIR`` to point to
 the Ipopt directory that contains the ``bin``, ``lib`` and ``include``
 directories.
 
-2. Using Conda Forge's IPOPT binary:
+2. Using Conda Forge's Ipopt binary:
 
-If using conda, you can install an IPOPT binary from Conda Forge::
+If using conda, you can install an Ipopt binary from Conda Forge::
 
-   $ conda.exe install -c conda-forge ipopt pkg-config
+   > conda.exe install -c conda-forge ipopt
 
 The ``ipopt`` executable should be in your path and discoverable by
 ``pkg-config``, i.e. this command should return a valid result::
 
-   $ pkg-config --libs --cflags ipopt
+   > pkg-config --libs --cflags ipopt
 
 Finally, execute::
 
-   $ python setup.py install
+   > python -m pip install --no-deps --no-build-isolation .
 
-**NOTE:** It is advised to use the Anaconda or Miniconda distributions and *not* the
-official python.org distribution. Even though it has been tested to work with the
-latest builds, it is well-known for causing issues. (see
-https://github.com/mechmotum/cyipopt/issues/52).
+``--no-deps`` is used because the dependencies have already been installed in
+the above commands. ``--no-build-isolation`` will build in the current
+directory using the above installed build dependencies. This is required for
+the Ipopt binaries if option 1 is used.
 
 On Ubuntu 22.04 Using APT Dependencies
 --------------------------------------
@@ -126,7 +129,7 @@ You can then install cyipopt from the PyPi release with::
 Or you use a local copy with::
 
   $ cd /cyipopt/source/directory/
-  $ python3 setup.py install
+  $ python3 -m pip install .
 
 On Ubuntu 18.04 Using APT Dependencies
 --------------------------------------
@@ -135,7 +138,7 @@ All of the dependencies can be installed with Ubuntu's package manager::
 
    $ sudo apt install build-essential pkg-config python-dev cython python-numpy coinor-libipopt1v5 coinor-libipopt-dev
 
-The NumPy and IPOPT libs and headers are installed in standard locations, so
+The NumPy and Ipopt libs and headers are installed in standard locations, so
 you should not need to set ``LD_LIBRARY_PATH`` or ``PKG_CONFIG_PATH``.
 
 Now run ``python setup.py build`` to compile cyipopt. In the output of this
@@ -148,8 +151,8 @@ look something like this (formatted and commented for easy viewing here)::
    x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing
      -Wdate-time -D_FORTIFY_SOURCE=2 -g -fdebug-prefix-map=/build/python2.7-3hk45v/python2.7-2.7.15~rc1=.
      -fstack-protector-strong -Wformat -Werror=format-security -fPIC
-     -I/usr/local/include/coin  # points to IPOPT headers
-     -I/usr/local/include/coin/ThirdParty  # points to IPOPT third party headers
+     -I/usr/local/include/coin  # points to Ipopt headers
+     -I/usr/local/include/coin/ThirdParty  # points to Ipopt third party headers
      -I/usr/lib/python2.7/dist-packages/numpy/core/include  # points to NumPy headers
      -I/usr/include/python2.7  # points to Python 2.7 headers
      -c src/cyipopt.c -o build/temp.linux-x86_64-2.7/src/cyipopt.o
@@ -202,11 +205,11 @@ prepend ``sudo`` to the above command, but it is safest to install into your
 user space, i.e. what ``pip install --user`` does, or setup a virtual
 environment with tools like venv or conda. If you use virtual environments you
 will need to be careful about selecting headers and libraries for packages in
-or out of the virtual environments in the build step. Note that cython,
-and numpy could alternatively be installed using Python specific package
+or out of the virtual environments in the build step. Note that Cython,
+and NumPy could alternatively be installed using Python specific package
 managers, e.g. ``pip install cython numpy``.
 
-On Ubuntu 18.04 with Custom Compiled IPOPT
+On Ubuntu 18.04 with Custom Compiled Ipopt
 ------------------------------------------
 
 Install system wide dependencies::
@@ -229,8 +232,7 @@ The Ipopt compilation instructions are derived from
 https://coin-or.github.io/Ipopt/INSTALL.html. If you get errors, start there
 for help.
 
-Download Ipopt source code. Choose the version that you would like to have from
-<https://www.coin-or.org/download/source/Ipopt/>. For example::
+Download Ipopt source code. For example::
 
    $ cd ~
    $ wget https://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.11.tgz
@@ -245,7 +247,7 @@ Create a temporary environment variable pointing to the Ipopt directory::
 
 To use linear solvers other than the default mumps, e.g. ``ma27, ma57, ma86``
 solvers, the ``HSL`` package are needed. ``HSL`` can be downloaded from its
-official website <http://www.hsl.rl.ac.uk/ipopt/>.
+official website http://www.hsl.rl.ac.uk/ipopt/.
 
 Extract ``HSL`` source code after you get it. Rename the extracted folder to
 ``coinhsl`` and copy it in the HSL folder: ``Ipopt-3.12.11/ThirdParty/HSL``
@@ -353,7 +355,7 @@ Create a conda environment with at least gfortran and cyipopt::
    $ conda activate hsl-test
 
 You should now have an environment that includes ipopt. You can checked what
-ipopt is linked against like so::
+Ipopt is linked against like so::
 
    (hsl-test) $ ldd ~/miniconda/envs/hsl-test/lib/libipopt.so
       linux-vdso.so.1 (0x00007ffcaf45b000)
@@ -416,11 +418,10 @@ Now, in your cyipopt script set the following two options::
    problem.add_option('hsllib', 'libcoinhsl.so')
 
 The various HSL solvers can be set with ``linear_solver`` and the ``hsllib``
-name must be specified because the default name ipopt looks for is
+name must be specified because the default name Ipopt looks for is
 ``libhsl.so``. Identify the shared library installed on your system and make
-sure the name provided for the ``hsllib`` option matches. For example, on macOS
+sure the name provided for the ``hsllib`` option matches. For example, on MacOS
 you may need ``problem.add_option('hsllib', 'libcoinhsl.dylib')``.
-
 
 On Windows
 ~~~~~~~~~~
@@ -432,12 +433,12 @@ cyipopt, first install cyipopt via standard call::
    $ conda activate hsl-test
 
 Download HSL linear solvers, e.g. ``ma27, ma57, ma86`` from its official
-website <http://www.hsl.rl.ac.uk/ipopt/>. Download the ``windows`` binaries
+website http://www.hsl.rl.ac.uk/ipopt/. Download the ``windows`` binaries
 option, in this example, we are using "CoinHSL Archive 2023.11.17 (windows
 binaries)" option.  This will download a zipped file that contains a folder
 ``bin``. Copy all the DLL files from that folder into your conda
-``env\Library\bin`` folder (This folder should also contain the an ipopt dll
-file installed with cyipopt (in our case it was called ``ipopt-3.dll``)::
+``env\Library\bin`` folder (This folder should also contain the Ipopt dll file
+installed with cyipopt, in our case it was called ``ipopt-3.dll``)::
 
    <conda_location>\envs\<env_name>\Library\bin
 
