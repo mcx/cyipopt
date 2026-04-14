@@ -65,11 +65,11 @@ Install the build dependencies with conda::
 
    > conda.exe install -c conda-forge numpy cython setuptools pkg-config
 
-Or alternatively with pip[*]_::
+Or alternatively with pip [*]_::
 
    > python -m pip install numpy cython setuptools
 
-.. _*: The pkg-config command line tool is not available on PyPi. Follow
+.. [*] The pkg-config command line tool is not available on PyPi. Follow
    recommendations for installing it on Windows.
 
 Additionally, make sure you have a C compiler setup to compile Python C
