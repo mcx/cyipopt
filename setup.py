@@ -64,7 +64,7 @@ EXTRAS_REQUIRES = {
     'tests': [
         'pytest>=7.4.4',
     ],
-},
+}
 LICENSE = "EPL-2.0"
 CLASSIFIERS = [
     "Development Status :: 5 - Production/Stable",
