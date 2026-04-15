@@ -22,6 +22,8 @@ except ImportError:
     MINIMIZE_METHODS = []
 
 
+@pytest.mark.skipif("scipy" not in sys.modules,
+                    reason="Test only valid if Scipy available.")
 def test_limited_memory_hessian():
     """If no hessian function is provided, then the generated problem to be
     passed to Problem(problem_obj=) should not have a hessian method defined.
