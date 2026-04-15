@@ -21,6 +21,32 @@ try:
 except ImportError:
     MINIMIZE_METHODS = []
 
+
+def test_limited_memory_hessian():
+    """If no hessian function is provided, then the generated problem to be
+    passed to Problem(problem_obj=) should not have a hessian method defined.
+    With no hessian function defined """
+
+    def objective(x):
+        return np.sum(x**2)
+
+    def gradient(x):
+        return 2.0*x
+
+    prob = cyipopt.IpoptProblemWrapper(objective, jac=gradient, hess=None)
+
+    with pytest.raises(AttributeError):
+        prob.hessian
+
+    def hess(x):
+        return np.vstack((x, x))
+
+    prob = cyipopt.IpoptProblemWrapper(objective, jac=gradient, hess=hess)
+    np.testing.assert_allclose(prob.hessian(np.array([1.0, 2.0]), [1.0], 1.0),
+                               np.array([1.0, 1.0, 2.0]))
+    assert not prob._hessian_is_sparse
+
+
 @pytest.fixture(params=[True, False])
 def sparse_hess(request):
     """Whether the hessian should be sparse or dense."""
@@ -180,7 +206,7 @@ def test_minimize_ipopt_jac_and_hessians_constraints_if_scipy(sparse_hess):
         "hess": as_coo_if(sparse_hess, lambda x, v: -2 * np.eye(2) * v[0])
     }
     bounds = [(-1.5, 1.5), (-1.5, 1.5)]
-    res = cyipopt.minimize_ipopt(rosen, x0, jac=rosen_der, 
+    res = cyipopt.minimize_ipopt(rosen, x0, jac=rosen_der,
                                  hess=as_coo_if(sparse_hess, rosen_hess),
                                  constraints=constr)
     assert isinstance(res, dict)
