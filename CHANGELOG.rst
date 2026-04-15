@@ -69,6 +69,19 @@ Removed
   name was ipopt and long been deprecated. Note that this has been replaced by
   the C extension module named ``ipopt_wrapper``, see above. #309
 
+Fixed
++++++
+
+- If no hessian function is provided to ``minimize_ipopt`` then the Ipopt
+  limited memory hessian should be used. A bug was fixed that prevented this
+  due the hessian method always being present on ``IpoptProblemWrapper``. If
+  there is a hessian attribute, then ``Problem`` would assume there is a dense
+  hessian when it should have been triggered to use the limited memory hessian
+  option. The hessian attribute is no longer present on ``IpoptProblemWrapper``
+  when a hessian function is not provided. This is backwards incompatible, but
+  was broken and did not function in the current state, so no deprecation is
+  made. #323
+
 [1.6.1] - 2025-08-14
 ~~~~~~~~~~~~~~~~~~~~
 
