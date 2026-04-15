@@ -62,10 +62,10 @@ class IpoptProblemWrapper():
         If ``None``, SciPy's ``approx_fprime`` is used.
     hess : callable, optional
         If ``None``, the Hessian is computed using Ipopt's numerical methods.
-        Explicitly defined Hessians are not yet supported for this class.
     hessp : callable, optional
         If ``None``, the Hessian is computed using Ipopt's numerical methods.
-        Explicitly defined Hessians are not yet supported for this class.
+        Explicitly defined Hessians times a vector are not yet supported for
+        this class.
     constraints : {Constraint, :py:class:`dict`} or List of {Constraint, :py:class:`dict`}, optional
         See :py:func:`scipy.optimize.minimize` for more information. Note that
         the Jacobian of each constraint corresponds to the `'jac'` key and must
@@ -142,6 +142,8 @@ class IpoptProblemWrapper():
 
         if hess is not None:
             self.obj_hess = hess
+            # NOTE : Only make hessian a method on the IpoptProblem if a
+            # callable is provided.
             setattr(self, 'hessian', self._hessian)
         if not jac:
             def jac(x, *args, **kwargs):
@@ -573,7 +575,7 @@ def minimize_ipopt(fun,
     :py:func:`scipy.optimize.rosen_hess`.
 
     >>> from cyipopt import minimize_ipopt
-    >>> from scipy.optimize import rosen, rosen_der
+    >>> from scipy.optimize import rosen, rosen_der, rosen_hess
     >>> x0 = [1.3, 0.7, 0.8, 1.9, 1.2]  # initial guess
 
     If we provide the objective function but no derivatives, Ipopt finds the
@@ -584,7 +586,7 @@ def minimize_ipopt(fun,
     approximate the gradient, and still the approximation is not very accurate,
     delaying convergence.
 
-    >>> res = minimize_ipopt(rosen, x0, jac=rosen_der)
+    >>> res = minimize_ipopt(rosen, x0)
     >>> res.success
     False
     >>> res.x
