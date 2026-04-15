@@ -24,10 +24,11 @@ except ImportError:
 
 @pytest.mark.skipif("scipy" not in sys.modules,
                     reason="Test only valid if Scipy available.")
-def test_limited_memory_hessian():
+def test_no_hessian():
     """If no hessian function is provided, then the generated problem to be
     passed to Problem(problem_obj=) should not have a hessian method defined.
-    With no hessian function defined """
+    If a hessian function is defined (without any sparsity kwargs) then the
+    dense Hessian function should be applied."""
 
     def objective(x):
         return np.sum(x**2)
@@ -40,10 +41,10 @@ def test_limited_memory_hessian():
     with pytest.raises(AttributeError):
         prob.hessian
 
-    def hess(x):
+    def hessian(x):
         return np.vstack((x, x))
 
-    prob = cyipopt.IpoptProblemWrapper(objective, jac=gradient, hess=hess)
+    prob = cyipopt.IpoptProblemWrapper(objective, jac=gradient, hess=hessian)
     np.testing.assert_allclose(prob.hessian(np.array([1.0, 2.0]), [1.0], 1.0),
                                np.array([1.0, 1.0, 2.0]))
     assert not prob._hessian_is_sparse
