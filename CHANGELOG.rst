@@ -3,8 +3,8 @@ CyIpopt Changelog
 =================
 
 :Info: Change log for CyIpopt releases.
-:Date: 2026-04-16
-:Version: 1.7.0rc1
+:Date: XXXX-XX-XX
+:Version: 1.7.0.dev1
 
 GitHub holds releases, too
 --------------------------
@@ -49,8 +49,8 @@ Include sections:
 Version History
 ---------------
 
-[1.7.0rc1] - 2026-04-16
-~~~~~~~~~~~~~~~~~~~~~~~
+[1.7.0.dev1] - XXXX-XX-XX
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Added
 +++++
