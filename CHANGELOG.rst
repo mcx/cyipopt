@@ -3,8 +3,8 @@ CyIpopt Changelog
 =================
 
 :Info: Change log for CyIpopt releases.
-:Date: XXXX-XX-XX
-:Version: 1.7.0.dev0
+:Date: 2026-04-16
+:Version: 1.7.0rc1
 
 GitHub holds releases, too
 --------------------------
@@ -16,9 +16,23 @@ About this Changelog
 --------------------
 
 All notable changes to this project will be documented in this file. The format
-is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). Dates
-should be (year-month-day) to conform with [ISO
-8601](https://www.iso.org/iso-8601-date-and-time-format.html).
+is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_. Dates
+should be (year-month-day) to conform with `ISO 8601
+<https://www.iso.org/iso-8601-date-and-time-format.html>`_.
+
+Version Numbering
+-----------------
+
+Version numbers are incremented sequentially and stored as MAJOR.MINOR.BUGPRE.
+MAJOR may be incremented if the library incurs significant changes but there is
+little difference is between MAJOR and MINOR. MINOR is generally all that is
+incremented each release. BUG will be incremented to apply bug fixes only and
+only if they are fixed before an update to MAJOR or MINOR. We deprecate all
+features that may be used by end users for at least one MINOR increment.
+Modules, attributes, and methods that start with an underscore, e.g. ``_attr``,
+are not considered public and not deprecated. During development between
+versions PRE is set to ``.dev0``. We may make a release candidate with PRE set
+to ``rc1``, for example. Version numbers fit the PEP 440 schema.
 
 Formatting a New Version
 ------------------------
@@ -35,14 +49,14 @@ Include sections:
 Version History
 ---------------
 
-[1.7.0.dev0] - XXXX-XX-XX
-~~~~~~~~~~~~~~~~~~~~~~~~~
+[1.7.0rc1] - 2026-04-16
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Added
 +++++
 
-- Support for Python 3.14. #306
-- Support for sparse Hessians in the SciPy interface. #301
+- Support for sparse Hessians in the SciPy interface. `#301`_
+- Support for Python 3.14. `#306`_
 - Installation supports pip extras: ``pip install
   cyipopt[docs,examples,tests]``.
 
@@ -54,10 +68,10 @@ Changed
   ``site-packages/``.  Importing directly from ``ipopt_wrapper`` with ``import
   ipopt_wrapper`` or ``from ipopt_wrapper import Problem`` is deprecated. Use
   ``import cyipopt.ipopt_wrapper``. This replaces the prior deprecated
-  ``cyipopt/ipopt_wrapper.py`` functionality, see below. #317
+  ``cyipopt/ipopt_wrapper.py`` functionality, see below. `#317`_
 - Ipopt DLLs are installed into ``site-packages/cyipopt`` instead of
   ``site-packages/`` when using ``setup.py`` adjacent Ipopt binaries. No
-  deprecation for accessing these DLLs from ``site-packages/``. #317
+  deprecation for accessing these DLLs from ``site-packages/``. `#317`_
 
 Removed
 +++++++
@@ -67,7 +81,7 @@ Removed
 - Removed deprecated ``cyipopt/ipopt_wrapper.py``, use ``scipy_interface.py``
   instead.  ``cyipopt/ipopt_wrapper.py`` was legacy code from when the package
   name was ipopt and long been deprecated. Note that this has been replaced by
-  the C extension module named ``ipopt_wrapper``, see above. #309
+  the C extension module named ``ipopt_wrapper``, see above. `#309`_
 
 Fixed
 +++++
@@ -80,7 +94,13 @@ Fixed
   option. The hessian attribute is no longer present on ``IpoptProblemWrapper``
   when a hessian function is not provided. This is backwards incompatible, but
   was broken and did not function in the current state, so no deprecation is
-  made. #323
+  made. `#323`_
+
+.. _#301: https://github.com/mechmotum/cyipopt/issues/301
+.. _#306: https://github.com/mechmotum/cyipopt/issues/306
+.. _#309: https://github.com/mechmotum/cyipopt/issues/309
+.. _#317: https://github.com/mechmotum/cyipopt/issues/317
+.. _#323: https://github.com/mechmotum/cyipopt/issues/323
 
 [1.6.1] - 2025-08-14
 ~~~~~~~~~~~~~~~~~~~~
